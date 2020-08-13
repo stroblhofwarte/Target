@@ -7,6 +7,18 @@ for N,S,W and E, one slew speed key with three LED's and a function key which ch
 the N,S,W and E key to Focuser 1 in and out and Focuser 2 in and out 
 (not tested yet, I don't have any motor focuser).
 
+# Prerequist
+
+```
+sudo apt install zlib1g-dev
+sudo apt install libcfitsio-dev
+```
+Installation of the INDI lib development package:
+```
+sudo apt-add-repository ppa:mutlaqja/ppa
+sudo apt update
+sudo apt install indi-dev
+```
 
 # How to build
 
