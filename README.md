@@ -35,5 +35,5 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ~/_develop/Target/t
 
 make -j4
 
-sudo make install
+sudo cp TargetClient <WHERE/EVER/YOU/WANT>
 ```
