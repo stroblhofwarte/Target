@@ -10,6 +10,9 @@ the N,S,W and E key to Focuser 1 in and out and Focuser 2 in and out
 # Prerequist (Ubuntu)
 
 ```
+sudo apt install build-essential
+sudo apt install cmake
+sudo apt install qt5-default
 sudo apt install zlib1g-dev
 sudo apt install libcfitsio-dev
 ```
