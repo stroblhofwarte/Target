@@ -10,7 +10,7 @@ the N,S,W and E key to Focuser 1 in and out and Focuser 2 in and out
 
 # How to build
 
-'''
+```
 cd ~/_develop/
 
 git clone https://github.com/stroblhofwarte/Target.git
@@ -24,4 +24,4 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ~/_develop/Target/t
 make -j4
 
 sudo make install
-'''
+```
