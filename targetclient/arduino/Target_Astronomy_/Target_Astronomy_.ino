@@ -47,7 +47,7 @@
   * Changelog:
   * 
   * 24.06.2020: Initial setup of the software.
-  * 06.12.2020: Changes for the ASCOM TargetBridge software. From here it is not compatible with the INDI Target driver anymore.
+  * 06.01.2021: Changes for the ASCOM TargetBridge software. From here it is not compatible with the INDI Target driver anymore.
   * 
   * 
   * ************************************************************************************/
