@@ -47,6 +47,7 @@
   * Changelog:
   * 
   * 24.06.2020: Initial setup of the software.
+  * 06.12.2020: Changes for the ASCOM TargetBridge software. From here it is not compatible with the INDI Target driver anymore.
   * 
   * 
   * ************************************************************************************/
@@ -86,6 +87,8 @@
   #define LED_ON      HIGH
   #define LED_OFF     LOW
 #endif
+
+#define MAX_SRV_CLIENTS 5
 
 // SSID and PW for Config Portal
 String ssid = "TargetHandbox_" + String(ESP_getChipId(), HEX);
@@ -169,14 +172,16 @@ _KEY_DATA g_data;
  * Target(Astronomy)
  */
 unsigned long g_previousMillis = 0;
+unsigned long g_previousReconnectMillis = 0;
 const long g_keyScanInterval = 100; //ms
+const long g_reconnectInterval = 1000; //ms
 int g_lastKey;
 
 int g_slewrate = SlewMax;
 
 #define TARGET_PORT 5665
 WiFiServer wifiServer(TARGET_PORT);
-WiFiClient g_client;
+WiFiClient serverClients[MAX_SRV_CLIENTS];
 IPAddress IPudp (255, 255, 255, 255); // Sending via broadcast
 
 char my_ip[32]   = "10.42.0.10";
@@ -240,7 +245,7 @@ void check_status()
 void ReadFilesystem()
 {
   //read configuration from FS json
-  Serial.println("mounting FS...");
+  DEBUG_PRINTLN("mounting FS...");
 
   if (SPIFFS.begin()) 
   {
@@ -397,18 +402,6 @@ void setup()
   //  Serial.println(ESP_wifiManager.getStatus(WiFi.status()));
 }
 
-#define KEY_NONE      0
-#define KEY_N         1
-#define KEY_S         2
-#define KEY_W         3
-#define KEY_E         4
-#define KEY_FUNC      5
-#define KEY_F1IN      6
-#define KEY_F1OUT     7
-#define KEY_F2IN      8
-#define KEY_F2OUT     9
-#define KEY_SLEW      10
-
 int ScanKeyboard()
 {
     if(digitalRead(K_F) == HIGH)
@@ -446,23 +439,25 @@ int ScanKeyboard()
 
 void SendCommand(int key)
 {
-  if(!g_client.connected())
-  {
-    DEBUG_PRINTLN("Check for client:");
-    g_client = wifiServer.available();
-  }
-  if(g_client.connected())
-  {
     DEBUG_PRINTLN("Connected!");
     // Client handling code
     g_data.cmd = (unsigned char)key;
-    g_client.write((char*)&g_data, sizeof(_KEY_DATA));
-    g_client.flush();
-  }
-#ifdef DEBUG
-  else
-    DEBUG_PRINTLN("no!");
-#endif
+    for(int i = 0; i < MAX_SRV_CLIENTS; i++)
+    {
+      if (serverClients[i] && serverClients[i].connected())
+      {
+        DEBUG_PRINT("Send to client: ");
+        DEBUG_PRINTLN(i);
+        serverClients[i].write((char*)&g_data, sizeof(_KEY_DATA));
+        serverClients[i].flush();
+      }
+    }
+    // New: here all LED's are turned on, the ASCOM bridge 
+    // will respond with the setted guiding rate to reset teh LED's
+    // to the correct value. This makes connection issues visible.
+    digitalWrite(LEDGUIDE, LED_ON); 
+    digitalWrite(LEDCENTER, LED_ON); 
+    digitalWrite(LEDFIND, LED_ON);  
 }
 
 int SetSlewRate()
@@ -575,48 +570,72 @@ void loop()
     
   }
   // Check if a ping was initiated from client
-  if(g_client.connected())
-  {
-    int cmd = g_client.read();
-    if( cmd == Ping)
-    {
-      DEBUG_PRINTLN("PING requested");
-      g_client.write((uint8_t)Ping);   
-      g_client.flush();
+  if (wifiServer.hasClient()){
+    for(int i = 0; i < MAX_SRV_CLIENTS; i++){
+      //find free/disconnected spot
+      if (!serverClients[i] || !serverClients[i].connected())
+      {
+        if(serverClients[i]) serverClients[i].stop();
+        serverClients[i] = wifiServer.available();
+        DEBUG_PRINTLN("New client: "); DEBUG_PRINTLN(i);
+        continue;
+      }
     }
-    if( cmd == LEDGuideOn)
-    {
-        digitalWrite(LEDGUIDE, LED_ON); 
-        DEBUG_PRINTLN("LEDGuideOn");      
-    }
-    if( cmd == LEDGuideOff)
-    {
-        digitalWrite(LEDGUIDE, LED_OFF); 
-        DEBUG_PRINTLN("LEDGuideOff");      
-    }
-    if( cmd == LEDCenterOn)
-    {
-        digitalWrite(LEDCENTER, LED_ON); 
-        DEBUG_PRINTLN("LEDCenterOn");      
-    }
-    if( cmd == LEDCenterOff)
-    {
-        digitalWrite(LEDCENTER, LED_OFF); 
-        DEBUG_PRINTLN("LEDGuideOff");      
-    } 
-    if( cmd == LEDFindOn)
-    {
-        digitalWrite(LEDFIND, LED_ON); 
-        DEBUG_PRINTLN("LEDFindOn");      
-    }
-    if( cmd == LEDFindOff)
-    {
-        digitalWrite(LEDFIND, LED_OFF); 
-        DEBUG_PRINTLN("LEDFindOff");      
-    }
-    
+    //no free/disconnected spot so reject
+    WiFiClient serverClient = wifiServer.available();
+    serverClient.stop();
   }
-  
+
+  for(int i = 0; i < MAX_SRV_CLIENTS; i++)
+  {
+    if (serverClients[i] && serverClients[i].connected())
+    {
+      if(serverClients[i].available())
+      {
+        //get data from the client
+        if(serverClients[i].available()) 
+        {
+          int cmd = serverClients[i].read();
+          if( cmd == Ping)
+          {
+            DEBUG_PRINTLN("PING requested");
+            SendCommand(Ping);
+          }
+          if( cmd == LEDGuideOn)
+          {
+              digitalWrite(LEDGUIDE, LED_ON); 
+              DEBUG_PRINTLN("LEDGuideOn");      
+          }
+          if( cmd == LEDGuideOff)
+          {
+              digitalWrite(LEDGUIDE, LED_OFF); 
+              DEBUG_PRINTLN("LEDGuideOff");      
+          }
+          if( cmd == LEDCenterOn)
+          {
+              digitalWrite(LEDCENTER, LED_ON); 
+              DEBUG_PRINTLN("LEDCenterOn");      
+          }
+          if( cmd == LEDCenterOff)
+          {
+              digitalWrite(LEDCENTER, LED_OFF); 
+              DEBUG_PRINTLN("LEDGuideOff");      
+          } 
+          if( cmd == LEDFindOn)
+          {
+              digitalWrite(LEDFIND, LED_ON); 
+              DEBUG_PRINTLN("LEDFindOn");      
+          }
+          if( cmd == LEDFindOff)
+          {
+              digitalWrite(LEDFIND, LED_OFF); 
+              DEBUG_PRINTLN("LEDFindOff");      
+          }
+        }
+      }
+    }
+  }
+
   if (currentMillis - g_previousMillis >= g_keyScanInterval)
   {
       g_previousMillis = currentMillis;
