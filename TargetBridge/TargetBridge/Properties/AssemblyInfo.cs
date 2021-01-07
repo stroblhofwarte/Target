@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("TargetBridge")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Bridge between ASCOM equipment and Target(Astronomy) handbox")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Stroblhofwarte")]
 [assembly: AssemblyProduct("TargetBridge")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]

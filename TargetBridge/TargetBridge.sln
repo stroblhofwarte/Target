@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargetBridge", "TargetBridge\TargetBridge.csproj", "{2100B51E-E953-4BBC-A11F-0453F69BE105}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TargetBridgeSetup", "TargetBridgeSetup\TargetBridgeSetup.vdproj", "{C20BB5E8-11F1-4F5A-8A1B-8DD2D2F6B12A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{2100B51E-E953-4BBC-A11F-0453F69BE105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2100B51E-E953-4BBC-A11F-0453F69BE105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2100B51E-E953-4BBC-A11F-0453F69BE105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C20BB5E8-11F1-4F5A-8A1B-8DD2D2F6B12A}.Debug|Any CPU.ActiveCfg = Debug
+		{C20BB5E8-11F1-4F5A-8A1B-8DD2D2F6B12A}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

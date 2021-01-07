@@ -1,4 +1,25 @@
-﻿using ASCOM.DeviceInterface;
+﻿/*
+ *  Copyright 2021, Othmar Ehrhardt <othmar.ehrhardt@t-online.de>, 
+ *                  https://astro.stroblhof-oberrohrbach.de
+ * 
+ *  This file is part of the TargetBridge project.
+ *
+ *  TargetBridge is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  TargetBridge is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+
+ *  You should have received a copy of the GNU General Public License
+ *  along with TargetBridge.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+using ASCOM.DeviceInterface;
 using ASCOM.DriverAccess;
 using System;
 using System.Collections.Generic;
@@ -78,6 +99,8 @@ namespace TargetBridge
 
         #region Properties
 
+        private Logger _log;
+
         private TcpClient _client;
         private bool _connected = false;
         private IPAddress _ipAddress;
@@ -109,6 +132,8 @@ namespace TargetBridge
         public FormBridge()
         {
             InitializeComponent();
+            _log = new Logger();
+            _log.Log("Start");
             _connectionTask = null;
             _client = new TcpClient();
             _buffer = new byte[readBufferSize];
@@ -150,6 +175,7 @@ namespace TargetBridge
                 }
                 catch (Exception ex)
                 {
+                    _log.Log("Focuser does not support Halt(). Not useable for this application.");
                     labelFocuserPosition.Text = "Focuser must support Halt!";
                     _focuser.Connected = false;
                     _focuserNotUseable = true;
@@ -161,6 +187,7 @@ namespace TargetBridge
                 return true;
             } catch (Exception ex)
             {
+                _log.Log(ex.ToString());
                 return false;
             }
         }
@@ -179,40 +206,64 @@ namespace TargetBridge
 
         private bool FocuserInOperation()
         {
-            if (!_focuserReady) return false;
-            if(_focuser.Absolute)
+            try
             {
-                // This focuser is an absolute position device
-                _focuser.Move(0);
+                if (!_focuserReady) return false;
+                if (_focuser.Absolute)
+                {
+                    // This focuser is an absolute position device
+                    _focuser.Move(0);
+                }
+                else
+                {
+                    _focuser.Move(-_focuser.MaxIncrement);
+                }
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                _focuser.Move(-_focuser.MaxIncrement);
+                _log.Log(ex.ToString());
+                return false;
             }
-            return true;
         }
 
 
         private bool FocuserOutOperation()
         {
-            if (!_focuserReady) return false;
-            if (_focuser.Absolute)
+            try
             {
-                // This focuser is an absolute position device
-                _focuser.Move(_focuser.MaxStep-1);
+                if (!_focuserReady) return false;
+                if (_focuser.Absolute)
+                {
+                    // This focuser is an absolute position device
+                    _focuser.Move(_focuser.MaxStep - 1);
+                }
+                else
+                {
+                    _focuser.Move(_focuser.MaxIncrement);
+                }
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                _focuser.Move(_focuser.MaxIncrement);
+                _log.Log(ex.ToString());
+                return false;
             }
-            return true;
         }
 
         private bool FocuserHaltOperation()
         {
-            if (!_focuserReady) return false;
-            _focuser.Halt();
-            return true;
+            try
+            {
+                if (!_focuserReady) return false;
+                _focuser.Halt();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _log.Log(ex.ToString());
+                return false;
+            }
         }
 
         #region ASCOM Telescope
@@ -237,6 +288,7 @@ namespace TargetBridge
                 return true;
             } catch (Exception ex)
             {
+                _log.Log(ex.ToString());
                 return false;
             }
         }
@@ -256,29 +308,44 @@ namespace TargetBridge
 
         private bool MoveTelescope(enumDirection dir)
         {
-            if(dir == enumDirection.N)
+            try
             {
-                _telescope.MoveAxis(TelescopeAxes.axisSecondary, _currentSpeedDeg_Sec);
-            }
-            if (dir == enumDirection.S)
+                if (dir == enumDirection.N)
+                {
+                    _telescope.MoveAxis(TelescopeAxes.axisSecondary, _currentSpeedDeg_Sec);
+                }
+                if (dir == enumDirection.S)
+                {
+                    _telescope.MoveAxis(TelescopeAxes.axisSecondary, -_currentSpeedDeg_Sec);
+                }
+                if (dir == enumDirection.E)
+                {
+                    _telescope.MoveAxis(TelescopeAxes.axisPrimary, -_currentSpeedDeg_Sec);
+                }
+                if (dir == enumDirection.W)
+                {
+                    _telescope.MoveAxis(TelescopeAxes.axisPrimary, _currentSpeedDeg_Sec);
+                }
+                return true;
+            } catch (Exception ex)
             {
-                _telescope.MoveAxis(TelescopeAxes.axisSecondary, -_currentSpeedDeg_Sec);
+                _log.Log(ex.ToString());
+                return false;
             }
-            if (dir == enumDirection.E)
-            {
-                _telescope.MoveAxis(TelescopeAxes.axisPrimary, -_currentSpeedDeg_Sec);
-            }
-            if (dir == enumDirection.W)
-            {
-                _telescope.MoveAxis(TelescopeAxes.axisPrimary, _currentSpeedDeg_Sec);
-            }
-            return true;
         }
 
         private bool StopTelescope()
         {
-            _telescope.AbortSlew();
-            return true;
+            try
+            {
+                _telescope.AbortSlew();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _log.Log(ex.ToString());
+                return false;
+            }
         }
 
         #endregion
@@ -309,6 +376,7 @@ namespace TargetBridge
             catch(Exception ex)
             {
                 _connectionState = enumConnectionState.error;
+                _log.Log(ex.ToString());
             }
         }
 
@@ -491,6 +559,7 @@ namespace TargetBridge
                         continue;
                     _connectionState = enumConnectionState.error;
                     _receiveRetry = 0;
+                    _log.Log(ex.ToString());
                     break;
                 }
 
@@ -552,17 +621,23 @@ namespace TargetBridge
 
         private void buttonFocuserSetup_Click(object sender, EventArgs e)
         {
-            if (_focuserReady)
-                _focuser.SetupDialog();
-            else
+            try
             {
-                _focuser = new Focuser(_focuserId);
-                _focuser.Connected = true;
-                if (_focuser.Connected)
-                {
+                if (_focuserReady)
                     _focuser.SetupDialog();
+                else
+                {
+                    _focuser = new Focuser(_focuserId);
+                    _focuser.Connected = true;
+                    if (_focuser.Connected)
+                    {
+                        _focuser.SetupDialog();
+                    }
+                    _focuser.Connected = false;
                 }
-                _focuser.Connected = false;
+            } catch(Exception ex)
+            {
+                _log.Log(ex.ToString());
             }
         }
 
@@ -577,21 +652,27 @@ namespace TargetBridge
 
         private void buttonTelescopeSetup_Click(object sender, EventArgs e)
         {
-            if (_telescopeReady)
+            try
             {
-                _telescope.Connected = false;
-                _telescope.SetupDialog();
-                _telescope.Connected = true;
-            }
-            else
-            {
-                _telescope = new Telescope(_telescopeId);
-                _telescope.Connected = true;
-                if (_telescope.Connected)
+                if (_telescopeReady)
                 {
+                    _telescope.Connected = false;
                     _telescope.SetupDialog();
+                    _telescope.Connected = true;
                 }
-                _telescope.Connected = false;
+                else
+                {
+                    _telescope = new Telescope(_telescopeId);
+                    _telescope.Connected = true;
+                    if (_telescope.Connected)
+                    {
+                        _telescope.SetupDialog();
+                    }
+                    _telescope.Connected = false;
+                }
+            } catch(Exception ex)
+            {
+                _log.Log(ex.ToString());
             }
         }
 

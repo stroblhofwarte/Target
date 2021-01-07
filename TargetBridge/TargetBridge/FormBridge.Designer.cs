@@ -71,6 +71,8 @@ namespace TargetBridge
             // 
             // textBoxServerAddress
             // 
+            this.textBoxServerAddress.BackColor = System.Drawing.Color.Gray;
+            this.textBoxServerAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxServerAddress.Location = new System.Drawing.Point(197, 6);
             this.textBoxServerAddress.Name = "textBoxServerAddress";
             this.textBoxServerAddress.Size = new System.Drawing.Size(101, 20);
@@ -90,12 +92,15 @@ namespace TargetBridge
             // 
             // buttonConnect
             // 
+            this.buttonConnect.BackColor = System.Drawing.Color.Teal;
+            this.buttonConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonConnect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonConnect.Location = new System.Drawing.Point(305, 4);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(75, 23);
             this.buttonConnect.TabIndex = 2;
             this.buttonConnect.Text = "Connect";
-            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.UseVisualStyleBackColor = false;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // timerConnectionWatchdog
@@ -106,12 +111,15 @@ namespace TargetBridge
             // 
             // buttonChooseFocuser
             // 
+            this.buttonChooseFocuser.BackColor = System.Drawing.Color.Teal;
+            this.buttonChooseFocuser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonChooseFocuser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonChooseFocuser.Location = new System.Drawing.Point(99, 70);
             this.buttonChooseFocuser.Name = "buttonChooseFocuser";
             this.buttonChooseFocuser.Size = new System.Drawing.Size(32, 23);
             this.buttonChooseFocuser.TabIndex = 3;
             this.buttonChooseFocuser.Text = "...";
-            this.buttonChooseFocuser.UseVisualStyleBackColor = true;
+            this.buttonChooseFocuser.UseVisualStyleBackColor = false;
             this.buttonChooseFocuser.Click += new System.EventHandler(this.buttonChooseFocuser_Click);
             // 
             // labelFocuser
@@ -153,12 +161,15 @@ namespace TargetBridge
             // 
             // buttonFocuserSetup
             // 
+            this.buttonFocuserSetup.BackColor = System.Drawing.Color.Teal;
+            this.buttonFocuserSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFocuserSetup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonFocuserSetup.Location = new System.Drawing.Point(18, 70);
             this.buttonFocuserSetup.Name = "buttonFocuserSetup";
             this.buttonFocuserSetup.Size = new System.Drawing.Size(75, 23);
             this.buttonFocuserSetup.TabIndex = 8;
             this.buttonFocuserSetup.Text = "Setup";
-            this.buttonFocuserSetup.UseVisualStyleBackColor = true;
+            this.buttonFocuserSetup.UseVisualStyleBackColor = false;
             this.buttonFocuserSetup.Click += new System.EventHandler(this.buttonFocuserSetup_Click);
             // 
             // checkBoxFocuserOnly
@@ -173,12 +184,15 @@ namespace TargetBridge
             // 
             // buttonTelescopeSetup
             // 
+            this.buttonTelescopeSetup.BackColor = System.Drawing.Color.Teal;
+            this.buttonTelescopeSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTelescopeSetup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonTelescopeSetup.Location = new System.Drawing.Point(18, 158);
             this.buttonTelescopeSetup.Name = "buttonTelescopeSetup";
             this.buttonTelescopeSetup.Size = new System.Drawing.Size(75, 23);
             this.buttonTelescopeSetup.TabIndex = 15;
             this.buttonTelescopeSetup.Text = "Setup";
-            this.buttonTelescopeSetup.UseVisualStyleBackColor = true;
+            this.buttonTelescopeSetup.UseVisualStyleBackColor = false;
             this.buttonTelescopeSetup.Click += new System.EventHandler(this.buttonTelescopeSetup_Click);
             // 
             // label6
@@ -202,12 +216,15 @@ namespace TargetBridge
             // 
             // buttonTelescopeChooser
             // 
+            this.buttonTelescopeChooser.BackColor = System.Drawing.Color.Teal;
+            this.buttonTelescopeChooser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTelescopeChooser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonTelescopeChooser.Location = new System.Drawing.Point(99, 158);
             this.buttonTelescopeChooser.Name = "buttonTelescopeChooser";
             this.buttonTelescopeChooser.Size = new System.Drawing.Size(32, 23);
             this.buttonTelescopeChooser.TabIndex = 10;
             this.buttonTelescopeChooser.Text = "...";
-            this.buttonTelescopeChooser.UseVisualStyleBackColor = true;
+            this.buttonTelescopeChooser.UseVisualStyleBackColor = false;
             this.buttonTelescopeChooser.Click += new System.EventHandler(this.buttonTelescopeChooser_Click);
             // 
             // label4
@@ -257,6 +274,8 @@ namespace TargetBridge
             // 
             // textBoxSetup1
             // 
+            this.textBoxSetup1.BackColor = System.Drawing.Color.Gray;
+            this.textBoxSetup1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxSetup1.Location = new System.Drawing.Point(80, 239);
             this.textBoxSetup1.Name = "textBoxSetup1";
             this.textBoxSetup1.Size = new System.Drawing.Size(194, 20);
@@ -265,6 +284,8 @@ namespace TargetBridge
             // 
             // textBoxPos1
             // 
+            this.textBoxPos1.BackColor = System.Drawing.Color.Gray;
+            this.textBoxPos1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPos1.Location = new System.Drawing.Point(280, 239);
             this.textBoxPos1.Name = "textBoxPos1";
             this.textBoxPos1.Size = new System.Drawing.Size(100, 20);
@@ -273,12 +294,15 @@ namespace TargetBridge
             // 
             // buttonMove1
             // 
+            this.buttonMove1.BackColor = System.Drawing.Color.Teal;
+            this.buttonMove1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMove1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonMove1.Location = new System.Drawing.Point(387, 237);
             this.buttonMove1.Name = "buttonMove1";
             this.buttonMove1.Size = new System.Drawing.Size(75, 23);
             this.buttonMove1.TabIndex = 23;
             this.buttonMove1.Text = "move";
-            this.buttonMove1.UseVisualStyleBackColor = true;
+            this.buttonMove1.UseVisualStyleBackColor = false;
             this.buttonMove1.Click += new System.EventHandler(this.buttonMove1_Click);
             // 
             // label8
@@ -301,16 +325,21 @@ namespace TargetBridge
             // 
             // buttonMove2
             // 
+            this.buttonMove2.BackColor = System.Drawing.Color.Teal;
+            this.buttonMove2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMove2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonMove2.Location = new System.Drawing.Point(387, 263);
             this.buttonMove2.Name = "buttonMove2";
             this.buttonMove2.Size = new System.Drawing.Size(75, 23);
             this.buttonMove2.TabIndex = 29;
             this.buttonMove2.Text = "move";
-            this.buttonMove2.UseVisualStyleBackColor = true;
+            this.buttonMove2.UseVisualStyleBackColor = false;
             this.buttonMove2.Click += new System.EventHandler(this.buttonMove2_Click);
             // 
             // textBoxPos2
             // 
+            this.textBoxPos2.BackColor = System.Drawing.Color.Gray;
+            this.textBoxPos2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPos2.Location = new System.Drawing.Point(280, 265);
             this.textBoxPos2.Name = "textBoxPos2";
             this.textBoxPos2.Size = new System.Drawing.Size(100, 20);
@@ -319,6 +348,8 @@ namespace TargetBridge
             // 
             // textBoxSetup2
             // 
+            this.textBoxSetup2.BackColor = System.Drawing.Color.Gray;
+            this.textBoxSetup2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxSetup2.Location = new System.Drawing.Point(80, 265);
             this.textBoxSetup2.Name = "textBoxSetup2";
             this.textBoxSetup2.Size = new System.Drawing.Size(194, 20);
@@ -336,16 +367,21 @@ namespace TargetBridge
             // 
             // buttonMove3
             // 
+            this.buttonMove3.BackColor = System.Drawing.Color.Teal;
+            this.buttonMove3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMove3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonMove3.Location = new System.Drawing.Point(387, 289);
             this.buttonMove3.Name = "buttonMove3";
             this.buttonMove3.Size = new System.Drawing.Size(75, 23);
             this.buttonMove3.TabIndex = 33;
             this.buttonMove3.Text = "move";
-            this.buttonMove3.UseVisualStyleBackColor = true;
+            this.buttonMove3.UseVisualStyleBackColor = false;
             this.buttonMove3.Click += new System.EventHandler(this.buttonMove3_Click);
             // 
             // textBoxPos3
             // 
+            this.textBoxPos3.BackColor = System.Drawing.Color.Gray;
+            this.textBoxPos3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPos3.Location = new System.Drawing.Point(280, 291);
             this.textBoxPos3.Name = "textBoxPos3";
             this.textBoxPos3.Size = new System.Drawing.Size(100, 20);
@@ -354,6 +390,8 @@ namespace TargetBridge
             // 
             // textBoxSetup3
             // 
+            this.textBoxSetup3.BackColor = System.Drawing.Color.Gray;
+            this.textBoxSetup3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxSetup3.Location = new System.Drawing.Point(80, 291);
             this.textBoxSetup3.Name = "textBoxSetup3";
             this.textBoxSetup3.Size = new System.Drawing.Size(194, 20);
@@ -371,16 +409,21 @@ namespace TargetBridge
             // 
             // buttonMove4
             // 
+            this.buttonMove4.BackColor = System.Drawing.Color.Teal;
+            this.buttonMove4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMove4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonMove4.Location = new System.Drawing.Point(387, 315);
             this.buttonMove4.Name = "buttonMove4";
             this.buttonMove4.Size = new System.Drawing.Size(75, 23);
             this.buttonMove4.TabIndex = 37;
             this.buttonMove4.Text = "move";
-            this.buttonMove4.UseVisualStyleBackColor = true;
+            this.buttonMove4.UseVisualStyleBackColor = false;
             this.buttonMove4.Click += new System.EventHandler(this.buttonMove4_Click);
             // 
             // textBoxPos4
             // 
+            this.textBoxPos4.BackColor = System.Drawing.Color.Gray;
+            this.textBoxPos4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPos4.Location = new System.Drawing.Point(280, 317);
             this.textBoxPos4.Name = "textBoxPos4";
             this.textBoxPos4.Size = new System.Drawing.Size(100, 20);
@@ -389,6 +432,8 @@ namespace TargetBridge
             // 
             // textBoxSetup4
             // 
+            this.textBoxSetup4.BackColor = System.Drawing.Color.Gray;
+            this.textBoxSetup4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxSetup4.Location = new System.Drawing.Point(80, 317);
             this.textBoxSetup4.Name = "textBoxSetup4";
             this.textBoxSetup4.Size = new System.Drawing.Size(194, 20);
@@ -408,6 +453,8 @@ namespace TargetBridge
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(524, 381);
             this.Controls.Add(this.buttonMove4);
             this.Controls.Add(this.textBoxPos4);
@@ -445,6 +492,8 @@ namespace TargetBridge
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxServerAddress);
+            this.ForeColor = System.Drawing.Color.Silver;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormBridge";
