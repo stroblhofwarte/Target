@@ -40,3 +40,18 @@ make -j4
 
 sudo cp TargetClient <WHERE/EVER/YOU/WANT>
 ```
+
+# ASCOM TargetBridge
+
+The new Version of the Target_Astronomy_.ino firmware (from 6.01.2021, ./targetclient/arduino/Target_Astronomy_) is supported by the ASCOM TargetBridge. This version of the firmware is
+not supported by the INDI driver anymore. 
+The ASCOM TargetBridge adds support for a Win10 based observatory setup. With the TargetBridge application the Target handcontroler 
+box can be used to control the mount and the focuser together with the imaging software (e.g. N.I.N.A.). To reach this the ASCOM Hub must
+be setup for devices not supporting a multiconnection. The ASCOM Hub must be setup only once. After setup the TargetBridge and/or the imaging
+software will startup the hub automatically.
+
+For some convenience four focuser positions (for absolute focuser only) can be marked. This can be used to switch the focal plane between a 
+imaging setup with CCD and a visual setup easily.
+
+The ASCOM TargetBridge is written in C# (VisualStudio 2019) and requires the ASCOM development libs to compile properly. 
+An precompiled msi package will follow soon.
