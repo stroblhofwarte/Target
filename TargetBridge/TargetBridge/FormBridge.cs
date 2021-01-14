@@ -148,6 +148,12 @@ namespace TargetBridge
             textBoxSetup2.Text = (string)Properties.Settings.Default["FocuserSetup2"];
             textBoxSetup3.Text = (string)Properties.Settings.Default["FocuserSetup3"];
             textBoxSetup4.Text = (string)Properties.Settings.Default["FocuserSetup4"];
+
+            textBoxPos1.Text = (string)Properties.Settings.Default["FocuserPosition1"];
+            textBoxPos2.Text = (string)Properties.Settings.Default["FocuserPosition2"];
+            textBoxPos3.Text = (string)Properties.Settings.Default["FocuserPosition3"];
+            textBoxPos4.Text = (string)Properties.Settings.Default["FocuserPosition4"];
+            
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
